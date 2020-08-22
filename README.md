@@ -3,20 +3,17 @@ Car hud light panel for FiveM servers
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Find your FxServer Resources folder and clone this file to the directery.
 
 ```bash
-pip install foobar
+cd FxServer/server-data/Resources
+git clone https://github.com/MacRichards/CarHudLights.git
 ```
 
-## Usage
+then in your server.cfg file add
 
 ```python
-import foobar
-
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+start CarHudLights
 ```
 
 ## Contributing
