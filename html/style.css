@@ -1,0 +1,103 @@
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.Container {
+	position: absolute;
+	top: 77.5%;
+	left: 1.5%;
+	width: 40px;
+	height: 40px;
+	flex-direction: column;
+}
+
+.Container>div {
+	width: auto;
+	height: 40px;
+
+}
+
+#Green {
+	opacity: 0.8;
+}
+
+#Green img {
+	width: inherit;
+	height: inherit;
+	opacity: 0.8;
+}
+
+#Yellow img {
+	width: inherit;
+	height: inherit;
+	opacity: 1.0;
+}
+
+#Red img {
+	width: inherit;
+	height: inherit;
+	opacity: 1.0;
+}
+
+.Container2 {
+	position: absolute;
+	top: 77.5%;
+	left: 3.5%;
+	width: 40px;
+	height: 40px;
+	flex-direction: column;
+}
+
+.Container2 div, img {
+	width: auto;
+	height: 40px;
+}
+
+#lightsOff {
+	opacity: 0.8;
+}
+
+.Container3 {
+	position: absolute;
+	top: 77.5%;
+	left: 5.8%;
+	width: 40px;
+	height: 40px;
+	flex-direction: column;
+}
+
+.Container3 div, img {
+	position: absolute;
+	width: auto;
+	height: 40px;
+	opacity: 0.8;
+}
+
+#turnOff {
+	z-index: -1;
+}
+
+.blink-image {
+    -moz-animation: blink normal 1s infinite ease-in-out;
+    -webkit-animation: blink normal 1s infinite ease-in-out;
+    animation: blink normal 1s infinite ease-in-out;
+}
+
+@-moz-keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0;}
+    100% {opacity:1;}
+} 
+
+@-webkit-keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@keyframes blink {
+    0% {opacity:1;}
+    50% {opacity:0;}
+    100% {opacity:1;}
+} 
