@@ -6,8 +6,6 @@
 
 Citizen.CreateThread(function()
 
-    local ccKey = 246 --Change this value to change CC key
-
     while true do
         Citizen.Wait(1)
 
@@ -16,11 +14,18 @@ Citizen.CreateThread(function()
         -- Check if ped is in Vehicle
         if (IsPedInAnyVehicle(GetPlayerPed(-1), false)) then
 
-            --[[
-                kph factor = 3.6
-                mph factor = 2.2369
-            ]]
-            local speed = GetEntitySpeed(pedVeh)*2.2369
+        local speedMulti = 0
+        local unit = ""
+
+            if (Config.speedUnits == "mph") then
+                speedMulti = 2.2369
+                unit = "mph"
+            else
+                speedMulti = 3.6
+                unit = "kph"
+            end
+
+            local speed = GetEntitySpeed(pedVeh) * speedMulti
             local damage = GetVehicleEngineHealth(pedVeh)
             local lights, lightsOn, highbeamsOn = GetVehicleLightsState(pedVeh)
             local indicatorLights = GetVehicleIndicatorLights(pedVeh)
@@ -28,7 +33,7 @@ Citizen.CreateThread(function()
             -- Speedometer
             drawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
             drawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(speed), 255, 255, 255, 255)
-            drawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~ mph", 255, 255, 255, 255)
+            drawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
 
             -- Engine Damage
             if (damage >= 500) then
@@ -64,7 +69,7 @@ Citizen.CreateThread(function()
             end
 
             -- Cruse Control
-            if IsControlJustReleased(1, ccKey) and (speed >= 25) then
+            if IsControlJustReleased(1, Config.ccKey) and (speed >= 25) then
                 if cruseIsOn == true then
                     cruseIsOn = false
                 else
