@@ -9,7 +9,7 @@ Config = {}
 -- Can be either mph or kph
 Config.speedUnits = "mph"
 
--- (docs.fivem.net/docs/game-references/controls)
+-- (https://docs.fivem.net/docs/game-references/controls/)
 
 -- Set to the same key as your cruse control or speed limiter script.
 Config.ccKey = 246
