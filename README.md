@@ -1,8 +1,6 @@
 # CarHudLights
 Car hud light panel for FiveM servers
 
-![GitHub](https://img.shields.io/github/license/MacRichards/CarHudLights) ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/MacRichards/CarHudLights?include_prereleases) ![GitHub all releases](https://img.shields.io/github/downloads/MacRichards/CarHudLights/total)
-
 ## Installation
 
 Find your FxServer Resources folder and clone this file to the directery.

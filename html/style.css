@@ -78,6 +78,26 @@ body {
 	z-index: -1;
 }
 
+.Container4 {
+	position: absolute;
+	top: 77.5%;
+	left: 9%; /*25*/
+	width: 40px;
+	height: 40px;
+    flex-direction: column;
+}
+
+.Container4 div, img {
+	position: absolute;
+	width: auto;
+	height: 40px;
+	opacity: 0.8;
+}
+
+#seatbelt-on {
+    z-index: -1
+}
+
 .blink-image {
     -moz-animation: blink normal 1s infinite ease-in-out;
     -webkit-animation: blink normal 1s infinite ease-in-out;
