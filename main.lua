@@ -14,8 +14,8 @@ Citizen.CreateThread(function()
         -- Check if ped is in Vehicle
         if (IsPedInAnyVehicle(GetPlayerPed(-1), false)) then
 
-        local speedMulti = 0
-        local unit = ""
+            local speedMulti = 0
+            local unit = ""
 
             if (Config.speedUnits == "mph") then
                 speedMulti = 2.2369
@@ -43,7 +43,7 @@ Citizen.CreateThread(function()
             elseif (damage < 250) then
                 SendNUIMessage({type = "ui", kind = 3})
             end
-            
+
             -- Head Lights
             if (lightsOn == 1) or (highbeamsOn == 1) then
                 SendNUIMessage({type = "ui", kind = 4})
@@ -51,7 +51,7 @@ Citizen.CreateThread(function()
                 SendNUIMessage({type = "ui", kind = 5})
             end
 
-            --[[ 
+            --[[
                 Indiator Lights
                 0 = off
                 1 = left
@@ -85,6 +85,10 @@ Citizen.CreateThread(function()
                 drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
             else
                 drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
+            end
+
+            if (IsPauseMenuActive()) then
+                SendNUIMessage({type = "ui", kind = 0})
             end
 
         else
