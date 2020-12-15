@@ -4,23 +4,6 @@
 --[[                                     ]]
 --[[ /////////////////////////////////// ]]
 
-local speedBuffer = {}
-local velBuffer = {}
-local seatBelt = false
-
--- Checks if the Vechicle is a Car
-function IsCar(veh)
-    local vc = GetVehicleClass(veh)
-    return (vc >= 0 and vc <= 7) or (vc >= 9 and vc <= 12) or (vc >= 17 and vc <= 20)
-end
-
-function Fwv(entity)
-    local hr = GetEntityHeading(entity) + 90.0
-    if hr < 0.0 then hr = 360.0 + hr end
-    hr = hr * 0.0174533
-    return { x = math.cos(hr) * 2.0, y = math.sin(hr) * 2.0 }
-end
-
 Citizen.CreateThread(function()
 
     while true do
@@ -36,8 +19,12 @@ Citizen.CreateThread(function()
 
             local speedMulti = 0
             local unit = ""
+            local speedBuffer = {}
+            local velBuffer = {}
+            local seatBelt = false
+            local cruseIsOn = false;
 
-            if (Config.speedUnits == "mph") then
+            if Config.speedUnits == "mph" then
                 speedMulti = 2.2369
                 unit = "mph"
             else
@@ -51,95 +38,90 @@ Citizen.CreateThread(function()
             local indicatorLights = GetVehicleIndicatorLights(pedVeh)
 
             -- Speedometer
-            drawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
-            drawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(speed), 255, 255, 255, 255)
-            drawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
+            if Config.Speedometer then
+                drawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
+                drawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(speed), 255, 255, 255, 255)
+                drawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
+            end
 
             -- Engine Damage
-            if (damage >= 500) then
-                SendNUIMessage({type = menu, kind = 1})
-            elseif (damage < 500) and (damage >=250) then
-                SendNUIMessage({type = menu, kind = 2})
-            elseif (damage < 250) then
-                SendNUIMessage({type = menu, kind = 3})
+            if Config.EngineDamage then
+                if damage >= 500 then
+                    SendNUIMessage({type = menu, kind = 1})
+                elseif damage < 500 and damage >= 250 then
+                    SendNUIMessage({type = menu, kind = 2})
+                elseif damage < 250 then
+                    SendNUIMessage({type = menu, kind = 3})
+                end
             end
 
             -- Head Lights
-            if (lightsOn == 1) or (highbeamsOn == 1) then
-                SendNUIMessage({type = menu, kind = 4})
-            else
-                SendNUIMessage({type = menu, kind = 5})
+            if Config.HeadLights then
+                if lightsOn == 1 or highbeamsOn == 1 then
+                    SendNUIMessage({type = menu, kind = 4})
+                else
+                    SendNUIMessage({type = menu, kind = 5})
+                end
             end
 
-            --[[
-                Indiator Lights
-                0 = off
-                1 = left
-                2 = right
-                3 = both (hazard)
-            ]]
-            if (indicatorLights == 1) then
-                SendNUIMessage({type = menu, kind = 6})
-            elseif (indicatorLights == 2) then
-                SendNUIMessage({type = menu, kind = 7})
-            elseif (indicatorLights == 3) then
-                SendNUIMessage({type = menu, kind = 8})
-            else
-                SendNUIMessage({type = menu, kind = 9})
+            -- Indiator Lights
+            if Config.IndiatorLights then
+                if indicatorLights == 1 then
+                    SendNUIMessage({type = menu, kind = 6})
+                elseif indicatorLights == 2 then
+                    SendNUIMessage({type = menu, kind = 7})
+                elseif indicatorLights == 3 then
+                    SendNUIMessage({type = menu, kind = 8})
+                else
+                    SendNUIMessage({type = menu, kind = 9})
+                end
             end
 
             -- Cruse Control
-            if IsControlJustReleased(1, Config.ccKey) and (speed >= 25) then
-                if cruseIsOn == true then
-                    cruseIsOn = false
-                else
-                    cruseIsOn = true;
+            if Config.CruseControl then
+                if IsControlJustReleased(1, Config.ccKey) and speed >= 25 then
+                    cruseIsOn = not cruseIsOn;
                 end
-            end
 
-            if (cruseIsOn == true) and (speed < 25) then
-                cruseIsOn = false
-            end
+                if cruseIsOn == true and (speed < 25 or IsControlJustReleased(1, 233)) then
+                    cruseIsOn = false
+                end
 
-            if cruseIsOn then
-                drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
-            else
-                drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
+                if cruseIsOn then
+                    drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
+                else
+                    drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
+                end
             end
 
             -- Seatbelt
-            if not IsPauseMenuActive() then
-                if not seatBelt then
-                    SendNUIMessage({type = menu, kind = 10})
-                else
+            if Config.Seatbelt and GetVehicleClass(car) ~= 8 then
+                if seatBelt then
                     SendNUIMessage({type = menu, kind = 11})
+                    DisableControlAction(0, 75, true)
+                    DisableControlAction(27, 75, true)
+                else
+                    SendNUIMessage({type = menu, kind = 10})
                 end
-            end
 
-            -- When button is pressed
-            if IsControlJustReleased(1, Config.seatBeltKey) and not IsPauseMenuActive() then
-                seatBelt = not seatBelt
-            end
+                if IsControlJustReleased(1, Config.seatBeltKey) then -- ? Will it accept input on pause menu
+                    seatBelt = not seatBelt
+                end
 
-            -- Keeps Ped In Car
-            if seatBelt then
-                DisableControlAction(0, 75, true)  -- Disable exit vehicle when stop
-                DisableControlAction(27, 75, true) -- Disable exit vehicle when Driving
-            end
-            speedBuffer[2] = speedBuffer[1]
-            speedBuffer[1] = GetEntitySpeed(car)
+                speedBuffer[2] = speedBuffer[1]
+                speedBuffer[1] = GetEntitySpeed(car)
 
-            -- Ejects Ped
-            if not seatBelt and speedBuffer[2] ~= nil and GetEntitySpeedVector(car, true).y > 1.0 and speedBuffer[1] > (Config.Speed / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
-                local co = GetEntityCoords(ped)
-                local fw = Fwv(ped)
-                SetEntityCoords(ped, co.x + fw.x, co.y + fw.y, co.z - 0.47, true, true, true)
-                SetEntityVelocity(ped, velBuffer[2].x, velBuffer[2].y, velBuffer[2].z)
-                Citizen.Wait(1)
-                SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
+                if not seatBelt and speedBuffer[2] ~= nil and GetEntitySpeedVector(car, true).y > 1.0 and speedBuffer[1] > (Config.Speed / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
+                    local co = GetEntityCoords(ped)
+                    local fw = Fwv(ped)
+                    SetEntityCoords(ped, co.x + fw.x, co.y + fw.y, co.z - 0.47, true, true, true)
+                    SetEntityVelocity(ped, velBuffer[2].x, velBuffer[2].y, velBuffer[2].z)
+                    Citizen.Wait(1)
+                    SetPedToRagdoll(ped, 1000, 1000, 0, 0, 0, 0)
+                end
+                velBuffer[2] = velBuffer[1]
+                velBuffer[1] = GetEntityVelocity(car)
             end
-            velBuffer[2] = velBuffer[1]
-            velBuffer[1] = GetEntityVelocity(car)
 
             -- Turns off ui if Ped dies or is in pause menu
             if IsPlayerDead(PlayerId()) or IsPauseMenuActive() then
@@ -154,7 +136,17 @@ Citizen.CreateThread(function()
     end
 end)
 
---[[ /////////////////////////////////// ]]
+function IsCar(veh) -- 8
+    local vc = GetVehicleClass(veh)
+    return (vc >= 0 and vc <= 12) or (vc >= 17 and vc <= 20)
+end
+
+function Fwv(entity)
+    local hr = GetEntityHeading(entity) + 90.0
+    if hr < 0.0 then hr = 360.0 + hr end
+    hr = hr * 0.0174533
+    return { x = math.cos(hr) * 2.0, y = math.sin(hr) * 2.0 }
+end
 
 function drawTxt(x, y, width, height, scale, text, r, g, b, a)
     SetTextFont(4)

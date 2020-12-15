@@ -6,16 +6,23 @@
 
 Config = {}
 
+Config.Speedometer = true
+Config.EngineDamage = true
+Config.HeadLights = true
+Config.IndiatorLights = true
+Config.CruseControl = true
+Config.Seatbelt = true
+
 -- Can be either mph or kph
 Config.speedUnits = "mph"
 
--- (https://docs.fivem.net/docs/game-references/controls/)
+-- For a list of possible keys go to https://docs.fivem.net/docs/game-references/controls/
 
 -- Set to the same key as your cruse control or speed limiter script.
-Config.ccKey = 246
+Config.ccKey = 246 -- Y
 
 -- Key used to toggle your seatbelt
-Config.seatBeltKey = 311
+Config.seatBeltKey = 311 -- K
 
 -- KM/H (must be have decimal value)
 Config.Speed = 100.0
