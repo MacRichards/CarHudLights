@@ -7,14 +7,14 @@ body {
 	position: absolute;
 	top: 77.5%;
 	left: 1.5%;
-	width: 40px;
-	height: 40px;
+	width: 3%;
+	height: 3%;
 	flex-direction: column;
 }
 
 .Container>div {
 	width: auto;
-	height: 40px;
+	height: 100%;
 
 }
 
@@ -25,7 +25,7 @@ body {
 #Green img {
 	width: inherit;
 	height: inherit;
-	opacity: 0.8;
+	opacity: inherit;
 }
 
 #Yellow img {
@@ -44,14 +44,14 @@ body {
 	position: absolute;
 	top: 77.5%;
 	left: 3.5%;
-	width: 40px;
-	height: 40px;
+	width: 3%;
+	height: 3%;
 	flex-direction: column;
 }
 
 .Container2 div, img {
 	width: auto;
-	height: 40px;
+	height: 100%;
 }
 
 #lightsOff {
@@ -62,15 +62,15 @@ body {
 	position: absolute;
 	top: 77.5%;
 	left: 5.8%;
-	width: 40px;
-	height: 40px;
+	width: 3%;
+	height: 3%;
 	flex-direction: column;
 }
 
 .Container3 div, img {
 	position: absolute;
 	width: auto;
-	height: 40px;
+	height: 100%;
 	opacity: 0.8;
 }
 
@@ -82,15 +82,15 @@ body {
 	position: absolute;
 	top: 77.5%;
 	left: 9%; /*25*/
-	width: 40px;
-	height: 40px;
+	width: 3%;
+	height: 3%;
     flex-direction: column;
 }
 
 .Container4 div, img {
 	position: absolute;
 	width: auto;
-	height: 40px;
+	height: 100%;
 	opacity: 0.8;
 }
 
