@@ -24,13 +24,13 @@ That's it. Launch your server.
 
 ## Suggested Config Edits to Other Plugins
 These are edits to other plugins' config files to complete the look of your server's hud.
-#### [StreetLabel](https://google.com/)
+#### [StreetLabel](https://github.com/codibez/streetLabel)
 Edit config.lua to
 ```lua
 x = 1.000
 y = 0.980
 ```
-#### [nearest-postal](https://google.com/)
+#### [nearest-postal](https://forum.cfx.re/t/release-nearest-postal-script/293511)
 Edit config.lua to
 ```lua
 text = {
@@ -39,7 +39,7 @@ text = {
 	posY = 0.961,
 },
 ```
-#### [LegacyFuel](https://google.com/)
+#### [LegacyFuel](https://github.com/InZidiuZ/LegacyFuel)
 Edit fuel_client.lua in the last Citizen.CreateThread(function() found on line 374 to
 ```lua
 if displayHud then
@@ -49,7 +49,7 @@ if displayHud then
 	--DrawAdvancedText(0.148 - x, 0.7765 - y, 0.005, 0.0028, 0.5, "Fuel", 255, 255, 255, 255, 6, 1)
 else
 ```
-#### [lux_vehcontrol](https://google.com/)
+#### [lux_vehcontrol](https://forum.cfx.re/t/release-luxart-vehicle-control/17304)
 The easy option would be to take a look at the Custom_Lux_Config.md file for information on how to create a config file for lux_vehcontrol. But if you aren't into that you can look at the client.lua file starting on line 438 to change the controls.
 
 ## Contributing
