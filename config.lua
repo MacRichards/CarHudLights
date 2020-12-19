@@ -19,7 +19,7 @@ Config.speedUnits = "mph"
 -- For a list of possible keys go to https://docs.fivem.net/docs/game-references/controls/
 
 -- Set to the same key as your cruse control or speed limiter script.
-Config.ccKey = 246 -- Y
+Config.ccKey = 182 -- L
 
 -- Key used to toggle your seatbelt
 Config.seatBeltKey = 311 -- K

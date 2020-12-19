@@ -4,6 +4,11 @@
 --[[                                     ]]
 --[[ /////////////////////////////////// ]]
 
+local speedBuffer = {}
+local velBuffer = {}
+local seatBelt = false
+local cruseIsOn = false
+
 Citizen.CreateThread(function()
 
     while true do
@@ -19,10 +24,6 @@ Citizen.CreateThread(function()
 
             local speedMulti = 0
             local unit = ""
-            local speedBuffer = {}
-            local velBuffer = {}
-            local seatBelt = false
-            local cruseIsOn = false;
 
             if Config.speedUnits == "mph" then
                 speedMulti = 2.2369
@@ -67,9 +68,9 @@ Citizen.CreateThread(function()
             -- Indiator Lights
             if Config.IndiatorLights then
                 if indicatorLights == 1 then
-                    SendNUIMessage({type = menu, kind = 6})
-                elseif indicatorLights == 2 then
                     SendNUIMessage({type = menu, kind = 7})
+                elseif indicatorLights == 2 then
+                    SendNUIMessage({type = menu, kind = 6})
                 elseif indicatorLights == 3 then
                     SendNUIMessage({type = menu, kind = 8})
                 else
@@ -79,16 +80,15 @@ Citizen.CreateThread(function()
 
             -- Cruse Control
             if Config.CruseControl then
-                if IsControlJustReleased(1, Config.ccKey) and speed >= 25 then
+                if IsControlJustReleased(1, Config.ccKey) and math.floor(speed) >= 23 then
                     cruseIsOn = not cruseIsOn;
-                end
-
-                if cruseIsOn == true and (speed < 25 or IsControlJustReleased(1, 233)) then
-                    cruseIsOn = false
                 end
 
                 if cruseIsOn then
                     drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
+                    if math.floor(speed) < 23 or IsControlJustReleased(1, 8) then
+                        cruseIsOn = false
+                    end
                 else
                     drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
                 end
@@ -129,7 +129,6 @@ Citizen.CreateThread(function()
             end
         else
             SendNUIMessage({type = menu, kind = 0})
-            cruseIsOn = false
             seatBelt = false
             speedBuffer[1], speedBuffer[2] = 0.0, 0.0
         end
