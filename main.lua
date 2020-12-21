@@ -44,16 +44,21 @@ Citizen.CreateThread(function()
             if GetVehicleClass(car) == 14 then
                 if GetPedInVehicleSeat(car, -1) == playerPed then
                     DrawSpeedometer(speed, car)
-                    DrawEngineDamage(damage)
-                    DrawHeadLighrs(lightsOn, highbeamsOn)
+                    DrawEngineDamage(damage, menu)
+                    DrawHeadLighrs(lightsOn, highbeamsOn, menu)
+                    DrawHeading(pedVeh)
                 end
             end
             -- Check to see if vehicle is a helicopter or plane
             if GetVehicleClass(car) == 15 or GetVehicleClass(car) == 16 then
                 if GetPedInVehicleSeat(car, -1) == playerPed or GetPedInVehicleSeat(car, 0) == playerPed then
                     DrawSpeedometer(speed, car)
-                    DrawEngineDamage(damage)
-                    DrawHeadLighrs(lightsOn, highbeamsOn)
+                    DrawEngineDamage(damage, menu)
+                    DrawHeadLighrs(lightsOn, highbeamsOn, menu)
+                    DrawPitch(pedVeh)
+                    DrawHeading(pedVeh)
+                    DrawRoll(pedVeh)
+                    DrawLandingGear(pedVeh)
                 end
             end
             -- Turns off ui if Ped dies or is in pause menu
@@ -115,8 +120,8 @@ function DrawHeadLighrs(lightsOn, highbeamsOn, menu)
 end
 
 function DrawIndiacatorLights(pedVeh, menu)
-    local indicatorLights = GetVehicleIndicatorLights(pedVeh)
     if Config.IndiatorLights then
+        local indicatorLights = GetVehicleIndicatorLights(pedVeh)
         if indicatorLights == 1 then
             SendNUIMessage({type = menu, kind = 7})
         elseif indicatorLights == 2 then
@@ -136,7 +141,7 @@ function DrawCruseControl(speed)
         end
 
         if cruseIsOn then
-            DrawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
+            drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
             if math.floor(speed) < 23 or IsControlJustReleased(1, 8) then
                 cruseIsOn = false
             end
@@ -149,7 +154,7 @@ end
 function DrawLicensePlate(pedVeh)
     if Config.LicensePlate then
         local plateText = GetVehicleNumberPlateText(pedVeh)
-        drawTxt(1.0, 1.0, 1.0, 1.0, 0.5, "~w~" .. plateText, 255, 255, 255, 255)
+        drawTxt(0.516, 1.24, 1.0, 1.0, 0.5, "~w~" .. plateText, 255, 255, 255, 255)
     end
 end
 
@@ -180,6 +185,37 @@ function DrawSeatBelt(car, ped, menu)
         end
         velBuffer[2] = velBuffer[1]
         velBuffer[1] = GetEntityVelocity(car)
+    end
+end
+
+function DrawLandingGear(pedVeh)
+    if Config.LandingGear and GetVehicleHasLandingGear(pedVeh) then
+        if GetLandingGearState(pedVeh) == 0 then
+            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~g~Gear", 255, 255, 255, 255)
+        else
+            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~w~Gear", 255, 255, 255, 255)
+        end
+    end
+end
+
+function DrawHeading(pedVeh)
+    if Config.Heading then
+        local heading = math.ceil(GetEntityHeading(pedVeh))
+        drawTxt(0.517, 1.300, 1.0, 1.0, 0.35, "~w~Heading: ~y~" .. heading, 255, 255, 255, 255)
+    end
+end
+
+function DrawPitch(pedVeh)
+    if Config.Pitch then
+        local pitch = math.ceil(GetEntityPitch(pedVeh))
+        drawTxt(0.517, 1.320, 1.0, 1.0, 0.35, "~w~Pitch: ~y~" .. pitch, 255, 255, 255, 255)
+    end
+end
+
+function DrawRoll(pedVeh)
+    if Config.Roll then
+        local roll = (GetEntityRotation(pedVeh, 2))
+        drawTxt(0.517, 1.340, 1.0, 1.0, 0.35, "~w~Roll: ~y~" .. math.floor(roll.y), 255, 255, 255, 255)
     end
 end
 
