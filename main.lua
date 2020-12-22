@@ -15,7 +15,6 @@ Citizen.CreateThread(function()
         Citizen.Wait(1)
 
         local ped = PlayerPedId()
-        local car = GetVehiclePedIsIn(ped)
         local playerPed = GetPlayerPed(-1)
         local pedVeh = GetVehiclePedIsIn(playerPed, false)
         local menu = IsPauseMenuActive()
@@ -24,41 +23,45 @@ Citizen.CreateThread(function()
         local lights, lightsOn, highbeamsOn = GetVehicleLightsState(pedVeh)
 
         -- Check if ped is in Vehicle and not cycle or train
-        if IsPedInAnyVehicle(playerPed, false) and GetVehicleClass(car) ~= 13 and GetVehicleClass(car) ~= 21 then
+        if IsPedInAnyVehicle(playerPed, false) and GetVehicleClass(pedVeh) ~= 13 and GetVehicleClass(pedVeh) ~= 21 then
             -- Check to see if vehicle is a car
-            if GetVehicleClass(car) <= 12 or GetVehicleClass(car) >= 17 then
+            if GetVehicleClass(pedVeh) <= 12 or GetVehicleClass(pedVeh) >= 17 then
                 -- Check to see if ped is driver
-                if GetPedInVehicleSeat(car, -1) == playerPed then
-                    DrawSpeedometer(speed, car)
+                if GetPedInVehicleSeat(pedVeh, -1) == playerPed then
+                    DrawSpeedometer(speed, pedVeh)
                     DrawEngineDamage(damage, menu)
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawIndiacatorLights(pedVeh, menu)
                     DrawCruseControl(speed)
                     DrawLicensePlate(pedVeh)
-                    DrawSeatBelt(car, ped, menu)
                 else
-                    DrawSeatBelt(car, ped)
+                    ClearAllButSeatBelt(menu)
                 end
+                DrawSeatBelt(pedVeh, ped, menu)
             end
             -- Check to see if vehicle is a boat
-            if GetVehicleClass(car) == 14 then
-                if GetPedInVehicleSeat(car, -1) == playerPed then
-                    DrawSpeedometer(speed, car)
+            if GetVehicleClass(pedVeh) == 14 then
+                if GetPedInVehicleSeat(pedVeh, -1) == playerPed then
+                    DrawSpeedometer(speed, pedVeh)
                     DrawEngineDamage(damage, menu)
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawHeading(pedVeh)
+                else
+                    ClearAllButSeatBelt(menu)
                 end
             end
             -- Check to see if vehicle is a helicopter or plane
-            if GetVehicleClass(car) == 15 or GetVehicleClass(car) == 16 then
-                if GetPedInVehicleSeat(car, -1) == playerPed or GetPedInVehicleSeat(car, 0) == playerPed then
-                    DrawSpeedometer(speed, car)
+            if GetVehicleClass(pedVeh) == 15 or GetVehicleClass(pedVeh) == 16 then
+                if GetPedInVehicleSeat(pedVeh, -1) == playerPed or GetPedInVehicleSeat(pedVeh, 0) == playerPed then
+                    DrawSpeedometer(speed, pedVeh)
                     DrawEngineDamage(damage, menu)
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawPitch(pedVeh)
                     DrawHeading(pedVeh)
                     DrawRoll(pedVeh)
                     DrawLandingGear(pedVeh)
+                else
+                    ClearAllButSeatBelt(menu)
                 end
             end
             -- Turns off ui if Ped dies or is in pause menu
@@ -192,6 +195,8 @@ function DrawLandingGear(pedVeh)
     if Config.LandingGear and GetVehicleHasLandingGear(pedVeh) then
         if GetLandingGearState(pedVeh) == 0 then
             drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~g~Gear", 255, 255, 255, 255)
+        elseif GetLandingGearState(pedVeh) ~= 4 then
+            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~o~Gear", 255, 255, 255, 255)
         else
             drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~w~Gear", 255, 255, 255, 255)
         end
@@ -217,6 +222,10 @@ function DrawRoll(pedVeh)
         local roll = (GetEntityRotation(pedVeh, 2))
         drawTxt(0.517, 1.340, 1.0, 1.0, 0.35, "~w~Roll: ~y~" .. math.floor(roll.y), 255, 255, 255, 255)
     end
+end
+
+function ClearAllButSeatBelt(menu)
+    SendNUIMessage({type = menu, kind = 12})
 end
 
 function Fwv(entity)

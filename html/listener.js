@@ -59,6 +59,16 @@ $(function () {
                         $("#seatbelt-off").hide();
                         $("#seatbelt-on").show();
                         break;
+                    case 12:
+                        $("#Green").hide();
+                        $("#Yellow").hide();
+                        $("#Red").hide();
+                        $("#lightsOn").hide();
+                        $("#lightsOff").hide();
+                        $("#turnLeft").hide();
+                        $("#turnRight").hide();
+                        $("#turnBoth").hide();
+                        $("#turnOff").hide();
                     default:
                         $("#Green").hide();
                         $("#Yellow").hide();
