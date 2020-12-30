@@ -9,18 +9,19 @@
 - Cruse Control Indicator
 - Seatbelt Indicator
 
-#### Potential Roadmap
+### Potential Roadmap
 - Might add a speed limiter to add built in functionality to the cruse control indicator.
 - Continued bug fixes.
 
+<!-- TODO Update Picture -->
 ![in-game preview](https://forum.cfx.re/uploads/default/original/4X/1/b/3/1b37f15d9db61c6d5e74a2a46feab0264e7bc8c3.jpeg)
 
 ### Optional Add-Ons
-- [pv-cruisecontrol](https://forum.cfx.re/t/release-cfx-fx-cruisecontrol/38840)
-- - Used to add cruise control.
+- [pv-cruisecontrol](https://forum.cfx.re/t/release-cfx-fx-cruisecontrol/38840) or another cruise control or speed limiter script.
+  - Used to add cruise control.
 
 ## Installation
-Download the latest release from the [releases tab](https://github.com/MacRichards/CarHudLights/releases). Navigate to your FXServer/server-data/resources folder. Place folder CarHudLights folder here. Navigate to your FXServer/server-data folder. Edit your server.cfg file to add the following line:
+Download the latest release from the [releases tab](https://github.com/MacRichards/CarHudLights/releases). Navigate to your `FXServer/server-data/resources` folder. Place folder CarHudLights folder here. Navigate to your `FXServer/server-data` folder. Edit your `server.cfg` file to add the following line:
 ```cfg
 start CarHudLights
 ```
@@ -30,7 +31,7 @@ That's it. Launch your server.
 These are edits to other plugins' config files to complete the look of your server's hud.
 
 #### [LegacyFuel](https://github.com/InZidiuZ/LegacyFuel)
-Edit fuel_client.lua in the last Citizen.CreateThread(function() found on line 374 to
+Edit `fuel_client.lua` in the last `Citizen.CreateThread(function()` found on line 374 to
 ```lua
 if displayHud then
 	--DrawAdvancedText(0.130 - x, 0.77 - y, 0.005, 0.0028, 0.6, mph, 255, 255, 255, 255, 6, 1)

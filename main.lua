@@ -94,9 +94,9 @@ function DrawSpeedometer(speed, car)
     end
 
     if Config.Speedometer then
-        drawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
-        drawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(newSpeed), 255, 255, 255, 255)
-        drawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
+        DrawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
+        DrawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(newSpeed), 255, 255, 255, 255)
+        DrawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
     end
 end
 
@@ -144,12 +144,12 @@ function DrawCruseControl(speed)
         end
 
         if cruseIsOn then
-            drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
+            DrawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "~g~ACC", 255, 255, 255, 255)
             if math.floor(speed) < 23 or IsControlJustReleased(1, 8) then
                 cruseIsOn = false
             end
         else
-            drawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
+            DrawTxt(0.606, 1.267, 1.0, 1.0, 0.5, "ACC", 0, 0, 0, 150)
         end
     end
 end
@@ -157,7 +157,7 @@ end
 function DrawLicensePlate(pedVeh)
     if Config.LicensePlate then
         local plateText = GetVehicleNumberPlateText(pedVeh)
-        drawTxt(0.516, 1.24, 1.0, 1.0, 0.5, "~w~" .. plateText, 255, 255, 255, 255)
+        DrawTxt(0.516, 1.24, 1.0, 1.0, 0.5, "~w~" .. plateText, 255, 255, 255, 255)
     end
 end
 
@@ -178,7 +178,7 @@ function DrawSeatBelt(car, ped, menu)
         speedBuffer[2] = speedBuffer[1]
         speedBuffer[1] = GetEntitySpeed(car)
 
-        if not seatBelt and speedBuffer[2] ~= nil and GetEntitySpeedVector(car, true).y > 1.0 and speedBuffer[1] > (Config.Speed / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
+        if not seatBelt and speedBuffer[2] ~= nil and GetEntitySpeedVector(car, true).y > 1.0 and speedBuffer[1] > (100 / 3.6) and (speedBuffer[2] - speedBuffer[1]) > (speedBuffer[1] * 0.255) then
             local co = GetEntityCoords(ped)
             local fw = Fwv(ped)
             SetEntityCoords(ped, co.x + fw.x, co.y + fw.y, co.z - 0.47, true, true, true)
@@ -194,11 +194,11 @@ end
 function DrawLandingGear(pedVeh)
     if Config.LandingGear and GetVehicleHasLandingGear(pedVeh) then
         if GetLandingGearState(pedVeh) == 0 then
-            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~g~Gear", 255, 255, 255, 255)
+            DrawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~g~Gear", 255, 255, 255, 255)
         elseif GetLandingGearState(pedVeh) ~= 4 then
-            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~o~Gear", 255, 255, 255, 255)
+            DrawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~o~Gear", 255, 255, 255, 255)
         else
-            drawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~w~Gear", 255, 255, 255, 255)
+            DrawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~w~Gear", 255, 255, 255, 255)
         end
     end
 end
@@ -206,21 +206,21 @@ end
 function DrawHeading(pedVeh)
     if Config.Heading then
         local heading = math.ceil(GetEntityHeading(pedVeh))
-        drawTxt(0.517, 1.300, 1.0, 1.0, 0.35, "~w~Heading: ~y~" .. heading, 255, 255, 255, 255)
+        DrawTxt(0.517, 1.300, 1.0, 1.0, 0.35, "~w~Heading: ~y~" .. heading, 255, 255, 255, 255)
     end
 end
 
 function DrawPitch(pedVeh)
     if Config.Pitch then
         local pitch = math.ceil(GetEntityPitch(pedVeh))
-        drawTxt(0.517, 1.320, 1.0, 1.0, 0.35, "~w~Pitch: ~y~" .. pitch, 255, 255, 255, 255)
+        DrawTxt(0.517, 1.320, 1.0, 1.0, 0.35, "~w~Pitch: ~y~" .. pitch, 255, 255, 255, 255)
     end
 end
 
 function DrawRoll(pedVeh)
     if Config.Roll then
         local roll = (GetEntityRotation(pedVeh, 2))
-        drawTxt(0.517, 1.340, 1.0, 1.0, 0.35, "~w~Roll: ~y~" .. math.floor(roll.y), 255, 255, 255, 255)
+        DrawTxt(0.517, 1.340, 1.0, 1.0, 0.35, "~w~Roll: ~y~" .. math.floor(roll.y), 255, 255, 255, 255)
     end
 end
 
@@ -235,7 +235,7 @@ function Fwv(entity)
     return { x = math.cos(hr) * 2.0, y = math.sin(hr) * 2.0 }
 end
 
-function drawTxt(x, y, width, height, scale, text, r, g, b, a)
+function DrawTxt(x, y, width, height, scale, text, r, g, b, a)
     SetTextFont(4)
     SetTextProportional(0)
     SetTextScale(scale, scale)
@@ -249,6 +249,6 @@ function drawTxt(x, y, width, height, scale, text, r, g, b, a)
     DrawText(x - width/2, y - height/2 + 0.005)
 end
 
-function drawRct(x, y, width, height, r, g, b, a)
+function DrawRct(x, y, width, height, r, g, b, a)
 	DrawRect(x + width/2, y + height/2, width, height, r, g, b, a)
 end
