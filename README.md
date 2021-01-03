@@ -47,7 +47,20 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+    Copyright (C) 2021 MacRichards
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see https://www.gnu.org/licenses/.
 
 ## Credits
 Inspiration for this project came from the [Discontinued Advanced Car Hud System](https://forum.cfx.re/t/discontinued-advanced-car-hud-system-9-14-2017-v2/5179) and the [Seatbelt with blinking warning indicator](https://forum.cfx.re/t/release-seatbelt-with-blinking-warning-indicator/165354). Additional thanks to the [Jeva YouTube Channel](https://www.youtube.com/channel/UCI7x329xu2rLbtVvFPVIhiQ) for their tutorials on Lua programming for FiveM.

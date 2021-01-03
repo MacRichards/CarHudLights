@@ -3,7 +3,7 @@ body {
 	padding: 0px;
 }
 
-.Container {
+.engineLight {
 	position: absolute;
 	top: 77.5%;
 	left: 1.5%;
@@ -12,35 +12,35 @@ body {
 	flex-direction: column;
 }
 
-.Container>div {
+.engineLight>div {
 	width: auto;
 	height: 100%;
 
 }
 
-#Green {
+#greenEngineLight {
 	opacity: 0.8;
 }
 
-#Green img {
+#greenEngineLight img {
 	width: inherit;
 	height: inherit;
 	opacity: inherit;
 }
 
-#Yellow img {
+#yellowEngineLight img {
 	width: inherit;
 	height: inherit;
 	opacity: 1.0;
 }
 
-#Red img {
+#redEngineLight img {
 	width: inherit;
 	height: inherit;
 	opacity: 1.0;
 }
 
-.Container2 {
+.headLights {
 	position: absolute;
 	top: 77.5%;
 	left: 3.5%;
@@ -49,16 +49,16 @@ body {
 	flex-direction: column;
 }
 
-.Container2 div, img {
+.headLights div, img {
 	width: auto;
 	height: 100%;
 }
 
-#lightsOff {
+#headLightsOff {
 	opacity: 0.8;
 }
 
-.Container3 {
+.turnLights {
 	position: absolute;
 	top: 77.5%;
 	left: 5.8%;
@@ -67,7 +67,7 @@ body {
 	flex-direction: column;
 }
 
-.Container3 div, img {
+.turnLights div, img {
 	position: absolute;
 	width: auto;
 	height: 100%;
@@ -78,23 +78,23 @@ body {
 	z-index: -1;
 }
 
-.Container4 {
+.seatbeltLight {
 	position: absolute;
 	top: 77.5%;
-	left: 9%; /*25*/
+	left: 9%;
 	width: 3%;
 	height: 3%;
     flex-direction: column;
 }
 
-.Container4 div, img {
+.seatbeltLight div, img {
 	position: absolute;
 	width: auto;
 	height: 100%;
 	opacity: 0.8;
 }
 
-#seatbelt-on {
+#seatbeltOn {
     z-index: -1
 }
 

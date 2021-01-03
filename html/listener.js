@@ -5,27 +5,27 @@ $(function () {
             if (item !== undefined && item.type === false) {
                 switch (item.kind) {
                     case 1:
-                        $("#Green").show();
-                        $("#Yellow").hide();
-                        $("#Red").hide();
+                        $("#greenEngineLight").show();
+                        $("#yellowEngineLight").hide();
+                        $("#redEngineLight").hide();
                         break;
                     case 2:
-                        $("#Green").hide();
-                        $("#Yellow").show();
-                        $("#Red").hide();
+                        $("#greenEngineLight").hide();
+                        $("#yellowEngineLight").show();
+                        $("#redEngineLight").hide();
                         break;
                     case 3:
-                        $("#Green").hide();
-                        $("#Yellow").hide();
-                        $("#Red").show();
+                        $("#greenEngineLight").hide();
+                        $("#yellowEngineLight").hide();
+                        $("#redEngineLight").show();
                         break;
                     case 4:
-                        $("#lightsOn").show();
-                        $("#lightsOff").hide();
+                        $("#headLightsOn").show();
+                        $("#headLightsOff").hide();
                         break;
                     case 5:
-                        $("#lightsOn").hide();
-                        $("#lightsOff").show();
+                        $("#headLightsOn").hide();
+                        $("#headLightsOff").show();
                         break;
                     case 6:
                         $("#turnLeft").show();
@@ -52,35 +52,35 @@ $(function () {
                         $("#turnOff").show();
                         break;
                     case 10:
-                        $("#seatbelt-off").show();
-                        $("#seatbelt-on").show();
+                        $("#seatbeltOff").show();
+                        $("#seatbeltOn").show();
                         break;
                     case 11:
-                        $("#seatbelt-off").hide();
-                        $("#seatbelt-on").show();
+                        $("#seatbeltOff").hide();
+                        $("#seatbeltOn").show();
                         break;
                     case 12:
-                        $("#Green").hide();
-                        $("#Yellow").hide();
-                        $("#Red").hide();
-                        $("#lightsOn").hide();
-                        $("#lightsOff").hide();
+                        $("#greenEngineLight").hide();
+                        $("#yellowEngineLight").hide();
+                        $("#redEngineLight").hide();
+                        $("#headLightsOn").hide();
+                        $("#headLightsOff").hide();
                         $("#turnLeft").hide();
                         $("#turnRight").hide();
                         $("#turnBoth").hide();
                         $("#turnOff").hide();
                     default:
-                        $("#Green").hide();
-                        $("#Yellow").hide();
-                        $("#Red").hide();
-                        $("#lightsOn").hide();
-                        $("#lightsOff").hide();
+                        $("#greenEngineLight").hide();
+                        $("#yellowEngineLight").hide();
+                        $("#redEngineLight").hide();
+                        $("#headLightsOn").hide();
+                        $("#headLightsOff").hide();
                         $("#turnLeft").hide();
                         $("#turnRight").hide();
                         $("#turnBoth").hide();
                         $("#turnOff").hide();
-                        $("#seatbelt-off").hide();
-                        $("#seatbelt-on").hide();
+                        $("#seatbeltOff").hide();
+                        $("#seatbeltOn").hide();
                 }
             }
         });
