@@ -9,6 +9,7 @@ Config = {}
 -- * Config Options for Cars, Boats, and Planes
 Config.Speedometer = true
 Config.EngineDamage = true
+Config.EngineState = true
 Config.HeadLights = true
 Config.IndiatorLights = true
 Config.CruseControl = true
@@ -18,6 +19,7 @@ Config.Seatbelt = true
 Config.UseKnots = true
 Config.Heading = true
 
+Config.Altitude = true;
 Config.LandingGear = true
 Config.Pitch = true
 Config.Roll = true

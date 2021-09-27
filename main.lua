@@ -31,6 +31,7 @@ Citizen.CreateThread(function()
         local menu = IsPauseMenuActive()
         local speed = GetEntitySpeed(pedVeh)
         local damage = GetVehicleEngineHealth(pedVeh)
+        local engineState = GetIsVehicleEngineRunning(pedVeh)
         local lights, lightsOn, highbeamsOn = GetVehicleLightsState(pedVeh)
 
         -- Check if ped is in Vehicle and not cycle or train
@@ -41,6 +42,7 @@ Citizen.CreateThread(function()
                 if GetPedInVehicleSeat(pedVeh, -1) == playerPed then
                     DrawSpeedometer(speed, pedVeh)
                     DrawEngineDamage(damage, menu)
+                    DrawEngineState(engineState)
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawIndiacatorLights(pedVeh, menu)
                     DrawCruseControl(speed)
@@ -69,6 +71,7 @@ Citizen.CreateThread(function()
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawPitch(pedVeh)
                     DrawHeading(pedVeh)
+                    DrawAltitude(pedVeh)
                     DrawRoll(pedVeh)
                     DrawLandingGear(pedVeh)
                 else
@@ -108,6 +111,16 @@ function DrawSpeedometer(speed, car)
         DrawRct(0.11, 0.932, 0.046, 0.03, 0, 0, 0, 150)
         DrawTxt(0.61, 1.42, 1.0, 1.0, 0.64, "~w~" .. math.ceil(newSpeed), 255, 255, 255, 255)
         DrawTxt(0.633, 1.432, 1.0, 1.0, 0.4, "~w~" .. unit, 255, 255, 255, 255)
+    end
+end
+
+function DrawEngineState(engineState)
+    if Config.EngineState then
+        if engineState then
+            DrawTxt(0.516, 1.24, 1.0, 0.5, "~g~Running", 255, 255, 255, 255);
+        else
+            DrawTxt(0.516, 1.24, 1.0, 0.5, "~r~Off", 255, 255, 255, 255);
+        end
     end
 end
 
@@ -211,6 +224,13 @@ function DrawLandingGear(pedVeh)
         else
             DrawTxt(0.600, 1.267, 1.0, 1.0, 0.5, "~w~Gear", 255, 255, 255, 255)
         end
+    end
+end
+
+function DrawAltitude(pedVeh)
+    if Config.Altitude then
+        local altitude = GetEntityHeightAboveGround(pedVeh)
+        DrawText(0.517, 1.300, 1.0, 1.0, 0.35, "~w~Altitude: ~y~" .. altitude, 255, 255, 255, 255);
     end
 end
 
