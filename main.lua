@@ -45,6 +45,7 @@ Citizen.CreateThread(function()
                     DrawEngineState(engineState)
                     DrawHeadLighrs(lightsOn, highbeamsOn, menu)
                     DrawIndiacatorLights(pedVeh, menu)
+		    EnableIndicatorControl(pedVeh)
                     DrawCruseControl(speed)
                     DrawLicensePlate(pedVeh)
                 else
@@ -52,6 +53,7 @@ Citizen.CreateThread(function()
                 end
                 DrawSeatBelt(pedVeh, ped, menu)
             end
+
             -- Check to see if vehicle is a boat
             if GetVehicleClass(pedVeh) == 14 then
                 if GetPedInVehicleSeat(pedVeh, -1) == playerPed then
@@ -158,6 +160,26 @@ function DrawIndiacatorLights(pedVeh, menu)
         else
             SendNUIMessage({type = menu, kind = 9})
         end
+    end
+end
+
+function EnableIndicatorControl(pedVeh)
+    if IsControlJustReleased(0, 174) then
+        SetVehicleIndicatorLights(pedVeh, 1, true)
+        --notify("~y~[Signal Lights]~w~: ~g~Left") --if needs
+    end
+
+    if IsControlJustReleased(0, 172) then
+        SetVehicleIndicatorLights(pedVeh, 1, false)
+    end
+
+    if IsControlJustReleased(0, 175) then
+        SetVehicleIndicatorLights(pedVeh, 0, true)
+        --notify("~y~[Signal Lights]~w~: ~b~Right")
+    end
+
+    if IsControlJustReleased(0, 172) then
+        SetVehicleIndicatorLights(pedVeh, 0, false)
     end
 end
 
